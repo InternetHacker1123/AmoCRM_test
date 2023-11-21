@@ -1,0 +1,19 @@
+{
+  "name": "amocrm_test",
+  "version": "1.0.0",
+  "description": "В этом репозитории представлено решение тестового задания.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/InternetHacker1123/AmoCRM_test"
+  },
+  "author": "Lesha",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "express": "^4.18.2"
+  }
+}

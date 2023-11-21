@@ -1,0 +1,76 @@
+const axios = require('axios')
+
+async function GetContact(name, phone, email, access_token) {
+    const url = "https://dinozavrik9911.amocrm.ru/api/v4/contacts?query="
+    try {
+        const userData = await axios.get(url + `${phone}`, {headers: {
+            "Authorization": `Bearer ${access_token}`
+        }})
+        userID = (userData.data._embedded.contacts[0].id)
+
+        if (userData.status == 204) {
+            try {
+                const userData = await axios.get(url + `${email}`,{headers: {
+                    "Authorization": `Bearer ${access_token}`
+                }})
+                if (userData.status == 204) {
+                    MakeContact(name, phone, email, access_token)
+                    MakeLead(name, access_token)
+                }
+                return
+            } catch (err) {
+    
+            }
+        } else {
+            const patchData = [{
+                name: name,
+                first_name: phone,
+                last_name: email
+            }]
+            const url = "https://dinozavrik9911.amocrm.ru/api/v4/contacts/" + userID
+            const userData = await axios.patch(url, patchData, {headers: {
+                "Authorization": `Bearer ${access_token}`
+            }})
+            MakeLead(name, access_token)
+            console.log("Lead is make")
+            return 
+        }
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+
+
+async function MakeContact(name, phone, email, access_token) {
+    const url = "https://dinozavrik9911.amocrm.ru/api/v4/contacts"
+    const postData = [{
+        name: name + " ",
+        first_name: phone, 
+        last_name: email
+    }]
+    try {
+        response = await axios.post(url, postData, {headers: {
+            "Authorization": `Bearer ${access_token}`
+        }})
+        console.log(response.data)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+async function MakeLead(name, access_token) {
+    const url = "https://dinozavrik9911.amocrm.ru/api/v4/leads"
+    const postData = [{
+        name: name
+    }]
+    const userData = await axios.post(url, postData, {headers: {
+        "Authorization": `Bearer ${access_token}`
+    }})
+    console.log(userData)
+    return
+}
+
+module.exports = {
+    GetContact: GetContact,
+}
