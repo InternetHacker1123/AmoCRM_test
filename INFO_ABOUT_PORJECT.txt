@@ -1,0 +1,5 @@
+URL: https://27f3-95-25-95-209.ngrok-free.app/
+URL для get-запросов с параметрами https://27f3-95-25-95-209.ngrok-free.app/contacts
+
+логин от AmoCRM: dinozavrik9911@mail.ru
+пароль от AmoCRM: ROzSBI
